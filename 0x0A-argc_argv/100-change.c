@@ -1,51 +1,44 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 /**
- * main - main function
- * @argc: argumentc
- * @argv: vector of arguments
- *Return: always 0
+ * main - entry point
+ * Description: prints minimum number of coins to make change
+ * @argc: arguement count
+ * @argv: argument array
+ * Return: 0
  */
-int main(int argc, char  *argv[])
+
+int main(int argc, char *argv[])
 {
-	int cents = 0;
+	int cents;
+	int coins[5] = {25, 10, 5, 2, 1};
+	int num_coins;
+	int i;
+	int coin_count;
 
-	if (argc == 2)
+	if (argc != 2)
 	{
-		if (strchr(argv[argc - 1], '-'))
-		{
-			printf("0\n");
-			return (1);
-		}
-		int money;
+		printf("Error\n");
+		return (1);
+	}
 
-		money = atoi(argv[argc - 1]);
+	cents = atoi(argv[1]);
 
-		while (money > 0)
-		{
-			if (money % 25 == 0)
-			{
-				money -= 25;
-			} else if (money % 10 == 0)
-			{
-				money -= 10;
-			} else if (money % 5 == 0)
-			{
-				money -= 5;
-			} else if (money % 2 == 0)
-			{
-				money -= 2;
-			} else
-			{
-				money--;
-			}
-			cents++;
-		}
-		printf("%d\n", cents);
+	if (cents < 0)
+	{
+		printf("0\n");
 		return (0);
 	}
-	printf("Error\n");
-	return (1);
+
+	num_coins = 0;
+
+	for (i = 0; i < 5; i++)
+	{
+		coin_count = cents / coins[i];
+		num_coins += coin_count;
+		cents -= coin_count * coins[i];
+	}
+	printf("%d\n", num_coins);
+	return (0);
 }
